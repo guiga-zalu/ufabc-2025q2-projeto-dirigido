@@ -25,8 +25,18 @@ Comentários:
 
 <!--
 Comentários:
-
 -->
+O problema de codificação de imagens se origina na necessidade de representar, de forma eficiente, informações visuais oriundas de diversas fontes - como fotografia convencional, composições gráficas e análises espectrais. No contexto atual, em que se tornam viáveis imagens com resoluções cada vez maiores, e também o surgimento de novas imagens se mantém em crescente (taxas anuais de 6% à 8%, no aumento do número de fotografias realizadas[^photutorial_photo_statistics]), a busca por melhores técnicas de compressão, que equilibrem fidelidade à imagem original e eficiência de armazenamento, é um campo dinâmico e ativo.
+
+Atualmente, o campo da compressão de imagens de origem genérica é majoritariamente dominado por formatos como JPEG, PNG e WebP, cada um empregando conjuntos de estratégias distintas: transformadas espaciais (DCT no JPEG, Walsh-Hadamard no WebP), divisão em blocos, e combinações de abordagens híbridas (PNG, WebP), todas se aproveitando de relações espaciais, locais ou globais, da composição da imagem, a fim de reduzir a dimensionalidade necessária para representá-la, assim reduzindo o uso de banda (de disco ou de rede).
+E como um campo em desenvolvimento ativo, em que algoritmos novos continuam surgindo, a pesquisa em codificação de imagens mantém atividade impulsionada por diversos fatores, como: (1) demandas emergentes em aplicações (*streaming*), (2) o surgimento de novas arquiteturas computacionais, e (3) avanços em técnicas baseadas em aprendizado de máquina[^clic2025].
+
+
+Esta proposta diferencia-se de estudos comparativos por visar estabelecer uma metodologia para análise e comparação dentre técnicas de compressão de imagens, respondendo à lacuna já identificada[^aim_2024] sobre a inadequação dos métodos atuais para comparar técnicas heterogêneas de forma genérica.
+
+O trabalho está organizado em cinco seções principais. Após esta introdução, a segunda seção apresenta a revisão da literatura, abordando desde conceitos fundamentais de representação de imagens até técnicas comuns de compressão. A terceira seção detalha a justificativa científica e prática da pesquisa, enquanto a quarta seção explicita os objetivos gerais e específicos. A metodologia proposta é descrita na quinta seção, seguida pelo cronograma de execução na sexta seção. Por fim, as considerações finais sintetizam as contribuições esperadas deste estudo.
+
+No restante do documento, serão apresentadas a revisão da literatura considerada, e a justificativa da presente proposta.
 
 ## Revisão da literatura
 
@@ -35,88 +45,62 @@ Comentários:
 
 -->
 
-### Definição do problema
+### Conceitos e Definições Fundamentais
 
 <!--
 Comentários:
 
 -->
 
-**Imagem digital e sua representação**
 >In digital image processing systems, one usually deals with arrays of numbers obtained by spatially sampling points of a physical image. After processing, another array of numbers is produced, and these numbers are then used to reconstruct a continuous image for viewing.[^digitalimageprocessing]
 
-Imagens digitais, quando não comprimidas, são comumente compostas como uma simples sequência (ou matriz) de números, representando uma amostragem espacial de pontos de uma imagem física, através dos píxeis, intensidades luminosas em diferentes canais de cores para cada ponto da imagem digital. **anexar fontes**
+Imagens digitais, quando não comprimidas, são comumente compostas como uma simples sequência (ou matriz) de números, representando uma amostragem espacial de pontos de uma imagem física, através dos píxeis, intensidades luminosas em diferentes canais de cores para cada ponto da imagem digital.[^digitalimageprocessing]
 
-**Codificação de imagens, e a relevância do campo**
+#### A relevância do campo de codificação de imagens
 
-A codificação (e a compressão) de imagens refere-se ao processo de representar uma imagem digital de forma compacta, ocupando pouco espaço digital de armazenamento ou banda de transmissão, mas mantendo-se a capacidade de reconstruir uma versão *suficientemente próxima* da imagem original. Essa técnica é fundamental em sistemas modernos de comunicação e armazenamento, onde a eficiência na utilização de recursos é crucial. **anexar fontes**
+A codificação (e a compressão) de imagens refere-se ao processo de representar uma imagem digital de forma compacta, ocupando pouco espaço digital de armazenamento ou banda de transmissão, mas mantendo-se a capacidade de reconstruir uma versão *suficientemente próxima* da imagem original. Essa técnica é fundamental em sistemas modernos de comunicação e armazenamento, onde a eficiência na utilização de recursos é crucial.
 
-**Conhecimento atual**
+#### Conhecimento atual
+
 A fim de se simplificar os escopos de busca para métodos eficazes de compressão de imagens, sempre se busca reconhecer relações que diminuam a dimensionalidade de escopo de busca de soluções.
 
-Dentre estas relações, está o fato de que, para imagens não-caóticas **anexar fontes, definir imagens não-caóticas, ou imagens caóticas** costumam existir relações espaciais discerníveis entre píxeis de uma região vizinha uma imagem.  
-Uma forma de se explorar esta relação algoritmicamente, costumam ser as transformadas espaciais: dado uma sub-imagem, um bloco de píxeis recortado da imagem original, um procedimento do gênero costuma ser genericamente análogas a:
-1. aplicar uma transformada espacial que evidencie informações relevantes **explicar isso**
-2. realizar uma redução de dimensionalidade
-3. salvar o resultado, ocupando menos espaço em memória
+Dentre estas relações, está o fato de que, para imagens não-caóticas (imagens caóticas possuem baixa correlação espacial entre informações, como imagens aleatórias) costumam existir relações espaciais discerníveis entre píxeis de uma região vizinha duma imagem.  
+Uma forma de se explorar esta relação algoritmicamente, costumam ser as transformadas espaciais: dado uma sub-imagem, que é um bloco de píxeis recortado da imagem original, um procedimento do gênero costuma ser genericamente análogas a (por simplicidade, outras fases de compactação foram deixadas de lado no exemplo):
+1. Aplicar uma transformada espacial que evidencie informações relevantes, como valor mediano e degradês.
+2. Realizar uma redução de dimensionalidade, ou *quantização*.
+3. Salvar o resultado, ocupando menos espaço em memória.
 
 Para se reconstruir a imagem, basta:
-1. desfazer a redução de dimensionalidade, recompondo a estrutura do bloco (preenchendo com zeros) **reescrever isso, está ruim**
-2. reverter a transformação
+1. Desfazer a redução de dimensionalidade, recompondo a estrutura do bloco (como um preenchimento por zeros).
+2. Aplicar a transformada inversa.
 
-DCT (*Discrete Cosine Transformation*), ou Transformada de Cosseno Discreta, é ...
+Uma das transformadas mais comumente utilizadas (formato JPEG[^branch_education_jpeg]), DCT (*Discrete Cosine Transformation*), ou Transformada de Cosseno Discreta, é um bom exemplo:
+- Aplicando a transformada de cosseno, a fase de redução de dimensionalidade se trata de dividir cada respectivo valor da matriz resultado para parâmetros específicos pré-determinados, arredondar os resultados, e por fim, estruturá-los como uma sequência linear. Com isso, o resultado costuma constar de grandes sequências do valor $0$, facilmente compressível por outros métodos genéricos.
+- A recomposição é feita ao se reestruturar os dados como matriz, os multiplicando pelos respectivos fatores, e então chegando ao resultado reconstruído.
 
-<!--
-As relações **anexar fontes**
-- Citar relações espaciais entre píxeis de imagens não-caóticas. Até 2 parágrafos.
-  - Definir "imagens caóticas" e "imagens aleatórias".
-  - Citar a relevância de transformadas espaciais, e sua história (DCT, Wavelet, Walsh-Hadamard[^webp]).
-- Técnicas singulares que sejam muito efetivas para casos específicos, não são boas generalistas (trazer fontes para esse argumento).
-- Combinações de técnicas singulares específicas são boas generalistas (citar a especificação PNG? Talvez o vídeo sobre PNG e as palavras do autor que escolheu "a soma do módulo da aplicação de cada técnica" como meio de escolher a técnica mais adequada).
--->
+Algoritmos mais complexos fazem uso de mais de uma técnica de compressão, escolhendo a que parecer (dada alguma heurística pré-determinada) mais eficiente: PNG testa várias técnicas, e escolhe aquela cuja soma do módulo dos valores comprimidos for a menor[^reducible_png], por exemplo.
 
-**O quê se tem em aberto:**  
-Me esqueci do quê colocar aqui.
+#### Métodos de comparação de imagens
 
-**Exemplos de métodos atuais:**  
-Citar as técnicas de:
-- quebra de blocos em PNG, JPEG e WEBP
-- transformada em JPEG e WEBP
-- combinações de técnicas em PNG e WEBP
+Existem diversos métodos de comparação de imagens, ou *comparação de sinais*. PSNR (_Peak Signal-to-Noise Ratio_), SSIM (_Structural Similarity Index Measure_, ou Índice de Medida de Similaridade Estrutural), técnicas de *hash* (que convertem um sinal em um valor numérico, transformando o cálculo de distâncias entre sinais em distâncias entre valores).
 
-**Métodos de comparação de algoritmos:**  
-Expandir textos, garantindo citações para todos.
-
-Citar [https://en.wikipedia.org/wiki/Subjective_video_quality](https://en.wikipedia.org/wiki/Subjective_video_quality), e como os métodos de comparação tentam aproximar a comparação humana.
-
-- _RD Curve_ (_Rate Distortion Curve_)[^webp2]: curva de taxa de distorção de píxeis.
-- PSNR (_Peak Signal-to-Noise Ratio_)
-- SSIM (_S. S. I. M._)
-- MS SSIM
-- VMAF (_V. M. A. F._)
-- Técnicas de _hash_:
-  - O quê efetivamente é _hash_
-    - _Hash_ de imagens. Me basear em [https://www.reddit.com/r/AskTechnology/comments/sqzn2h/explain_like_im_5_differences_between_a_b_d_phash/](https://www.reddit.com/r/AskTechnology/comments/sqzn2h/explain_like_im_5_differences_between_a_b_d_phash/), e buscar as fontes.
-  - a-hash
-  - b-hash
-  - d-hash
-  - p-hash
-  - $\alpha$-hash
+Todos os citados foram criados, tendo como um dos objetivos, comparar diferenças entre imagens. Essas técnicas são tidas como aproximações que visam aproximar a capacidade de comparação da percepção humana, apenas confirmada através de testes de comparação subjetiva, que demandam tempo e recursos humanos para realizar as comparações.[^wikipedia_subjetctive_quality]
 
 ### Justificativa
 
-<!--
-Comentários:
-
--->
 <!-- Um texto científico deve, internamente, justificar sua realização. -->
 
-- Porquê este tópico é relevante?
-	- Algoritmos melhores implicam em menos banda de disco e rede $\rightarrow$ menos custos, menos perda de dados (para algoritmos destrutivos)
-	- ¿Melhor aproveitamento de hardware, como gasto mais eficiente de CPU (talvez isso seja só coisa de implementação)?
-- Como este estudo em específico é relevante?
-	- Quais são os problemas atuais?
-	- Como este estudo difere de outros? Ler vários outros e citá-los aqui.
+O campo de pesquisa de codificação de imagens assume papel estratégico na otimização de recursos físicos e computacionais, onde avanços em algoritmos de compressão impactam diretamente a eficiência no uso de banda de armazenamento e transferência de dados, tendo como efeitos: (1) redução de custos operacionais em infraestruturas, (2) diminuição de latência computacional, e (3) mitigação de perdas de informação - tanto em transmissões quanto em algoritmos de compressão destrutiva (_lossy compression_ / *compressão com perdas*).
+
+No contexto tecnológico, com a evolução em dispositivos de captura (sensores com resoluções crescentes) e reprodução (telas de alta definição), combinada com a democratização do acesso a tecnologias de imagem digital (segundo dados da , o volume global de imagens digitais geradas cresce a taxa anual de 6% a 8%[^photutorial_photo_statistics]) há uma constante demanda por algoritmos mais eficientes.
+
+Este estudo comparativo justifica-se pela necessidade emergente de metodologias de avaliação adaptáveis ao cenário dinâmico de compressão de imagens, onde:
+
+1. A demanda por novas técnicas se mantém ativa. A exemplo, a competição anual por novos métodos de compressão de imagens CLIC[^clic2025], financiada por algumas das maiores empresas do ramo.
+2. As métricas tradicionais de avaliação (PSNR, SSIM) serem limitadas em sua capacidade de representar a percepção humana[^aim_2024].
+3. A escolha ótima de técnica varia conforme aplicação (telemedicina, *streaming*, armazenamento em nuvem, arquivologia etc.) 
+
+Ao propor uma metodologia sistemática de avaliação, este trabalho busca preencher a lacuna entre o desenvolvimento acelerado de novos algoritmos e a carência de ferramentas robustas para sua comparação objetiva, particularmente em cenários de uso realístico.
 
 ## Objetivo geral e objetivos específicos
 
@@ -144,11 +128,11 @@ Para atingir estes objetivos, a proposta tem como objetivos específicos:
 Comentários:
 Criar um rascunho. O quê eu preciso fazer para resolver isso (isso := desafio da proposta)?
 -->
-A metodologia proposta envolve três etapas principais: seleção de conjuntos de imagens representativos (datasets) para realizar as comparações; escolha criteriosa de algoritmos de comparação de imagens que abranjam diferentes abordagens; e execução sistemática de processos de compressão seguidos de coleta e análise de métricas de desempenho. Esta abordagem permitirá uma avaliação abrangente e objetiva das técnicas estudadas.
-
-- Selecionar um ou mais conjuntos (*datasets*) de imagens para realizar comparações.
-- Selecionar algoritmos de comparação de imagens.
-- Realizar compressão das imagens e coletar métricas sobre os resultados da comparação.
+A metodologia proposta envolve três etapas principais:
+1. seleção de conjuntos de imagens representativos (*datasets*) para realizar as comparações;
+2. escolha criteriosa de algoritmos de comparação de imagens que abranjam diferentes abordagens;
+3. e execução sistemática de processos de compressão seguidos de coleta e análise de métricas de desempenho.
+Esta abordagem permitirá uma avaliação abrangente e objetiva das técnicas estudadas.
 
 ## Cronograma de execução
 
@@ -171,4 +155,10 @@ Comentários:
 
 [^webp]: https://en.wikipedia.org/wiki/WebP
 [^webp2]: https://chromium.googlesource.com/codecs/libwebp2/
-[^DigitalImageProcessing]: # William K. Pratt. Digital Image Processing : PIKS Scientific Inside / William K. Pratt, 4th edition.
+[^DigitalImageProcessing]: William K. Pratt. *Digital Image Processing : PIKS Scientific Inside / William K. Pratt*, 4th edition.
+[^aim_2024]: *AIM 2024 Challenge on Compressed Video Quality Assessment: Methods and Results* https://arxiv.org/abs/2408.11982.
+[^photutorial_photo_statistics]: Matic Broz. *Photo statistics: How many photos are taken every day?*, atualizado em 21/05/2025. https://photutorial.com/photos-statistics/.
+[^clic2025]: *7th Challenge on Learned Image Compression*. https://clic2025.compression.cc/
+[^branch_education_jpeg]: *How are Images Compressed? \[46MB ↘↘ 4.07MB\] JPEG In Depth*. https://www.youtube.com/watch?v=Kv1Hiv3ox8I
+[^reducible_png]: *How PNG Works: Compromising Speed for Quality*. https://www.youtube.com/watch?v=EFUYNoFRHQI
+[^wikipedia_subjetctive_quality]: *Subjective video quality*. Wikipédia. https://en.wikipedia.org/wiki/Subjective_video_quality
