@@ -1,0 +1,176 @@
+# Generated with python comparador/parse-logs.py
+Total files: 46520
+Per image statistics for codec PNG (Lossless)
+Average filesize:	978 KiB
+Average Relative Size: 105.56 | 979.19 ± 107.94 | 1,526.57
+Average encoding time: 5 ms
+
+Per image statistics for codec QOI (Lossless)
+Average filesize:	997 KiB
+Average Relative Size: 120.10 | 1,035.54 ± 212.72 | 2,241.88
+Average encoding time: 5 ms
+
+Per image statistics for codec WEBP (Lossless)
+Average filesize:	502 KiB
+Average Relative Size: 6.16 | 500.47 ± 84.49 | 925.34
+Average encoding time: 302 ms
+
+Per image statistics for codec WEBP (90%) (Lossy)
+Average filesize:	127 KiB
+Average Relative Size: 11.88 | 119.29 ± 14.64 | 160.51
+Average encoding time: 62 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec WEBP (80%) (Lossy)
+Average filesize:	84 KiB
+Average Relative Size: 11.72 | 77.39 ± 13.88 | 120.33
+Average encoding time: 56 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec WEBP (50%) (Lossy)
+Average filesize:	53 KiB
+Average Relative Size: 11.42 | 47.74 ± 10.77 | 88.16
+Average encoding time: 51 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec WEBP (15%) (Lossy)
+Average filesize:	27 KiB
+Average Relative Size: 4.32 | 24.83 ± 5.58 | 53.54
+Average encoding time: 45 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec JPEG (90%) (Lossy)
+Average filesize:	170 KiB
+Average Relative Size: 141.70 | 167.60 ± 8.14 | 215.60
+Average encoding time: 544 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec JPEG (80%) (Lossy)
+Average filesize:	125 KiB
+Average Relative Size: 12.00 | 123.68 ± 6.38 | 168.43
+Average encoding time: 404 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec JPEG (50%) (Lossy)
+Average filesize:	89 KiB
+Average Relative Size: 67.83 | 89.06 ± 5.61 | 167.27
+Average encoding time: 294 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec JPEG (15%) (Lossy)
+Average filesize:	41 KiB
+Average Relative Size: 19.77 | 42.39 ± 8.48 | 166.02
+Average encoding time: 143 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec PNG (pngquant 128) (Lossy)
+Average filesize:	299 KiB
+Average Relative Size: 14.05 | 311.16 ± 67.24 | 768.21
+Average encoding time: 352 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
+
+Per image statistics for codec PNG (pngquant 256) (Lossy)
+Average filesize:	358 KiB
+Average Relative Size: 14.05 | 371.37 ± 77.17 | 851.36
+Average encoding time: 349 ms
+Hashes:
+- A Hash : 1.56 | 1.87 ± 0.98 | 28.12
+- D Hash : 1.56 | 2.10 ± 1.28 | 31.25
+- P Hash : 1.56 | 1.69 ± 0.49 | 17.19
+Metrics:
+- MAE    : 0.00 | 0.03 ± 0.02 | 0.29
+- MSE    : 0.00 | 0.45 ± 0.31 | 3.44
+- SSIM   : 0.68 | 1.00 ± 0.01 | 1.00
+- MS SSIM: 0.44 | 0.96 ± 0.04 | 1.00
+- GMSM   : 0.15 | 0.91 ± 0.09 | 1.00
+- GMSD   : 0.00 | 0.19 ± 0.10 | 0.49
