@@ -18,6 +18,8 @@ class Metric:
     scale_into_unity: str = ""
     scale_by: float = 1
     proper_rounding: Optional[int] = None
+    str_span: bool = True
+    str_stddev: bool = True
     k: int = 1
 
     def __init__(
@@ -34,6 +36,8 @@ class Metric:
         scale_by: float = 1.0,
         proper_rounding: Optional[int] = None,
         k: int = 1,
+        str_span: bool = True,
+        str_stddev: bool = True,
     ):
         self.name = name
         self.values = []
@@ -47,6 +51,8 @@ class Metric:
         self.scale_into_unity = scale_into_unity
         self.scale_by = scale_by
         self.proper_rounding = proper_rounding
+        self.str_span = str_span
+        self.str_stddev = str_stddev
         self.k = k
 
     def compile(self):
@@ -138,6 +144,7 @@ class Metric:
         mean = self.mean * scale
         stddev = math.sqrt(self.var) * scale
 
+        str_ = [name.ljust(10) + ":"]
         if self.proper_rounding is not None and stddev > 0.0:
             significant_digit = math.floor(math.log10(stddev))
             rounding_scale = self.proper_rounding - significant_digit
@@ -145,16 +152,28 @@ class Metric:
             max_ = round(max_, rounding_scale)
             mean = round(mean, rounding_scale)
             stddev = round(stddev, rounding_scale)
-            str_ = f"{name.ljust(10)}: {min_} | {mean} ± {stddev} | {max_}"
+            if self.str_span:
+                str_.append(str(min_) + " |")
+            str_.append(str(mean))
+            if self.str_stddev:
+                str_.append(f"± {stddev}")
+            if self.str_span:
+                str_.append("| " + str(max_))
         else:
-            str_ = f"{name.ljust(10)}: {min_:,.2f} | {mean:,.2f} ± {stddev:,.2f} | {max_:,.2f}"
-        return str_
+            if self.str_span:
+                str_ += f"{min_:,.2f} |"
+            str_ += f"{mean:,.2f}"
+            if self.str_stddev:
+                str_ += f" ± {stddev:,.2f}"
+            if self.str_span:
+                str_ += f"| {max_:,.2f}"
+        return " ".join(str_)
 
 
 @dataclass(init=False)
 class Codec:
     name: str
-    size_bytes: int | float
+    size_bytes: Metric
     time_mcs: Metric
     lossy: bool
     hashes: dict[str, Metric]
@@ -165,7 +184,7 @@ class Codec:
     def __init__(
         self,
         name: str,
-        size_bytes: int | float = 0,
+        size_bytes: Optional[Metric] = None,
         time_mcs: Optional[Metric] = None,
         lossy: bool = False,
         hashes: dict[str, Metric] = {},
@@ -173,11 +192,18 @@ class Codec:
         k: int = 1,
     ):
         self.name = name
-        self.size_bytes = size_bytes
         self.lossy = lossy
         self.hashes = hashes
         self.metrics = metrics
         self.k = k
+        self.size_bytes = size_bytes or Metric(
+            "Filesize",
+            unity="B",
+            scale_into_unity="KiB",
+            scale_by=1e-3,
+            proper_rounding=0,
+            str_span=False,
+        )
         self.time_mcs = time_mcs or Metric(
             "Time",
             unity="μs",
@@ -196,7 +222,7 @@ class Codec:
         total_len = total_self + total_other
         new = Codec(
             self.name,
-            (self.size_bytes * self.k + other.size_bytes * other.k) / total_len,
+            self.size_bytes + other.size_bytes,
             self.time_mcs + other.time_mcs,
             self.lossy,
             k=total_len,
@@ -233,6 +259,7 @@ class Codec:
             metric.compile()
         self.time_mcs.compile()
         self.relative_sizes.compile()
+        self.size_bytes.compile()
 
 
 @dataclass
@@ -286,7 +313,7 @@ def parse_log_line(
             name,
             lambda: Codec(name, lossy="Lossy" in name),
         )
-        codec.size_bytes += int(size_bytes[:-1])
+        codec.size_bytes.values.append(int(size_bytes[:-1]))
         codec.time_mcs.values.append(int(time_spent_mcs[:-3]))
         codec.relative_sizes.values.append(float(relative_size[:-1]))
         return codec
@@ -335,7 +362,8 @@ def divide_stats(stats: Status):
         #     continue
 
         print(f"Per image statistics for codec {codec.name}")
-        print("- Filesize:\t%d KiB" % round(codec.size_bytes / 1024))
+        assert codec.size_bytes.mean is not None
+        print("- " + str(codec.size_bytes))
         print("- " + str(codec.relative_sizes))
         print("- " + str(codec.time_mcs))
         if codec.lossy:

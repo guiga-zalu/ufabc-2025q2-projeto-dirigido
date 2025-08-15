@@ -10,7 +10,6 @@ use comparador::{
     traits::Comparison,
     utils::{RwHashMap, Writer},
 };
-use simple_tqdm::{Config, Tqdm};
 
 use std::{
     cell::{Cell, UnsafeCell},
@@ -25,8 +24,10 @@ use std::{
 };
 
 use clap::Parser;
+use globwalk::glob;
 use image::{DynamicImage, ImageReader};
 use rayon::prelude::*;
+use simple_tqdm::{Config, Tqdm};
 
 #[derive(Parser, Debug, Default)]
 #[command(author, version, about, long_about = None)]
@@ -168,19 +169,23 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         temp_folder,
     } = args;
     let log_folder: &str = "./logs";
+    let dataset = dataset.to_str().unwrap().to_owned();
+    let dataset = dataset + "/**/*.{avif,bmp,exr,gif,jpeg,jpg,ico,png,pnm,tga,tiff,qoi,webp}";
 
     // Create temp folder if not exists
     fs::create_dir_all(&temp_folder).unwrap_or_default();
     fs::create_dir_all(&log_folder).unwrap_or_default();
 
     let mut image_names = vec![];
-    for entry in fs::read_dir(dataset)? {
-        let entry = entry?;
+    let glob_walker = glob(&dataset)?.filter_map(Result::ok);
+    for entry in glob_walker {
+        // dbg!(&entry);
         let path = entry.path();
         if path.is_file() {
-            image_names.push(path);
+            image_names.push(path.to_path_buf());
         }
     }
+    assert_ne!(image_names.len(), 0, "No images found in dataset");
     let compiled = process_images(image_names, &temp_folder, log_folder);
     println!("{:?}", compiled);
 
@@ -211,7 +216,7 @@ fn process_images(image_names: Vec<PathBuf>, temp_folder: &str, log_folder: &str
                 .with_desc("Processing images")
                 .with_progress_chars("@%#987654321 "),
         )
-        .par_bridge()
+        // .par_bridge()
         .for_each(|(image_name, hashes)| {
             // dbg!(&image_name);
             let temp_folder = temp_folder.clone();
