@@ -382,14 +382,15 @@ def divide_stats(stats: Status):
 def main():
     from sys import argv
 
+    folder = "logs"
     ignore_zeroes = False
     if len(argv) > 1:
-        if argv[1] == "--i":
+        if "-i" in argv:
             ignore_zeroes = True
+        if "-l" in argv:
+            folder = argv[argv.index("-l") + 1]
 
-    logs = sorted(Path("logs").glob("*.log")) + sorted(
-        Path("comparador/logs").glob("*.log")
-    )
+    logs = sorted(Path(folder).glob("*.log"))
     stats: Optional[Status] = None
     for log in logs:
         print("Parsing log file:", log)

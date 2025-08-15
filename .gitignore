@@ -1,4 +1,5 @@
 comparador/target/
 comparador/logs*/
 comparador/datasets/**/src
+comparador/datasets/**/logs
 comparador/datasets/imagenet-kaggle

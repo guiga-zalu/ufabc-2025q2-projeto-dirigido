@@ -1,0 +1,1 @@
+Dataset URL: https://github.com/cvdfoundation/open-images-dataset#download-images-with-bounding-boxes-annotations

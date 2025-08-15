@@ -6,23 +6,23 @@ use image::{DynamicImage, ImageEncoder, ImageFormat};
 #[derive(Clone)]
 pub struct Codec {
     pub name: String,
-    pub func: Box<fn(&DynamicImage, &Path) -> Compression>,
+    pub func: Box<fn(&DynamicImage, &Path) -> Option<Compression>>,
 }
 
 impl Codec {
-    pub fn new(name: String, func: fn(&DynamicImage, &Path) -> Compression) -> Codec {
+    pub fn new(name: String, func: fn(&DynamicImage, &Path) -> Option<Compression>) -> Codec {
         Codec {
             name,
             func: Box::new(func),
         }
     }
-    pub fn apply(&self, image: &DynamicImage, temp_file: &Path) -> Compression {
+    pub fn apply(&self, image: &DynamicImage, temp_file: &Path) -> Option<Compression> {
         (self.func)(image, temp_file)
     }
 }
 
 impl Add<(&DynamicImage, &Path)> for &Codec {
-    type Output = Compression;
+    type Output = Option<Compression>;
 
     fn add(self, (img, temp_file): (&DynamicImage, &Path)) -> Self::Output {
         (self.func)(img, temp_file)
@@ -35,37 +35,40 @@ pub struct Compression {
     pub image_if_lossy: Option<DynamicImage>,
 }
 
-pub fn png(img: &DynamicImage, temp_file: &Path) -> Compression {
+pub fn png(img: &DynamicImage, temp_file: &Path) -> Option<Compression> {
     let temp_file = temp_file.with_extension("png");
     let now = Instant::now();
-    img.save_with_format(&temp_file, ImageFormat::Png).unwrap();
+    img.save_with_format(&temp_file, ImageFormat::Png).ok()?;
     let time_spent = now.elapsed();
 
-    let stream_size = fs::metadata(&temp_file).unwrap().len();
-    fs::remove_file(temp_file).unwrap();
-    Compression {
+    let stream_size = fs::metadata(&temp_file).ok()?.len();
+    fs::remove_file(temp_file).ok()?;
+    Some(Compression {
         stream_size,
         time_spent,
         image_if_lossy: None,
-    }
+    })
 }
 
-pub fn qoi(img: &DynamicImage, temp_file: &Path) -> Compression {
+pub fn qoi(img: &DynamicImage, temp_file: &Path) -> Option<Compression> {
+    if !img.color().has_color() {
+        return None;
+    }
     let temp_file = temp_file.with_extension("qoi");
     let now = Instant::now();
-    img.save_with_format(&temp_file, ImageFormat::Qoi).unwrap();
+    img.save_with_format(&temp_file, ImageFormat::Qoi).ok()?;
     let time_spent = now.elapsed();
 
-    let stream_size = fs::metadata(&temp_file).unwrap().len();
-    fs::remove_file(temp_file).unwrap();
-    Compression {
+    let stream_size = fs::metadata(&temp_file).ok()?.len();
+    fs::remove_file(temp_file).ok()?;
+    Some(Compression {
         stream_size,
         time_spent,
         image_if_lossy: None,
-    }
+    })
 }
 
-pub fn avif(img: &DynamicImage, temp_file: &Path, quality: u8) -> Compression {
+pub fn avif(img: &DynamicImage, temp_file: &Path, quality: u8) -> Option<Compression> {
     let temp_file = temp_file.with_extension("avif");
     use image::{
         codecs::avif::{AvifDecoder, AvifEncoder},
@@ -77,7 +80,7 @@ pub fn avif(img: &DynamicImage, temp_file: &Path, quality: u8) -> Compression {
             .write(true)
             .create(true)
             .open(&temp_file)
-            .unwrap();
+            .ok()?;
         let encoder = AvifEncoder::new_with_speed_quality(&file, 5, quality);
 
         let now = Instant::now();
@@ -88,31 +91,31 @@ pub fn avif(img: &DynamicImage, temp_file: &Path, quality: u8) -> Compression {
                 img.height(),
                 ExtendedColorType::Rgb8,
             )
-            .unwrap();
+            .ok()?;
         now.elapsed()
     };
 
     let (stream_size, img) = {
-        let file = fs::File::open(&temp_file).unwrap();
-        let stream_size = file.metadata().unwrap().len();
-        let decoder = AvifDecoder::new(file).unwrap();
-        let img = DynamicImage::from_decoder(decoder).unwrap();
+        let file = fs::File::open(&temp_file).ok()?;
+        let stream_size = file.metadata().ok()?.len();
+        let decoder = AvifDecoder::new(file).ok()?;
+        let img = DynamicImage::from_decoder(decoder).ok()?;
         (stream_size, img)
     };
-    fs::remove_file(temp_file).unwrap();
+    fs::remove_file(temp_file).ok()?;
 
-    Compression {
+    Some(Compression {
         stream_size,
         time_spent,
         image_if_lossy: Some(img),
-    }
+    })
 }
 
-pub fn webp(img: &DynamicImage, quality: Option<f32>) -> Compression {
+pub fn webp(img: &DynamicImage, quality: Option<f32>) -> Option<Compression> {
     use webp::{Decoder, Encoder};
 
     let now = Instant::now();
-    let encoder = Encoder::from_image(img).unwrap();
+    let encoder = Encoder::from_image(img).ok()?;
     let encoded = if let Some(q) = quality {
         encoder.encode(q)
     } else {
@@ -121,47 +124,47 @@ pub fn webp(img: &DynamicImage, quality: Option<f32>) -> Compression {
     let time_spent = now.elapsed();
 
     let stream_size = encoded.len() as u64;
-    Compression {
+    Some(Compression {
         stream_size,
         time_spent,
         image_if_lossy: quality.map(|_| Decoder::new(&encoded).decode().unwrap().to_image()),
-    }
+    })
 }
 
-pub fn jpeg(img: &DynamicImage, temp_file: &Path, quality: u8) -> Compression {
+pub fn jpeg(img: &DynamicImage, temp_file: &Path, quality: u8) -> Option<Compression> {
     let temp_file = temp_file.with_extension("jpg");
     use image::codecs::jpeg::{JpegDecoder, JpegEncoder};
     let time_spent = {
         fs::remove_file(&temp_file).unwrap_or_default();
-        let file = fs::File::create_new(&temp_file).unwrap();
+        let file = fs::File::create_new(&temp_file).ok()?;
         let mut encoder = JpegEncoder::new_with_quality(&file, quality);
 
         let now = Instant::now();
-        encoder.encode_image(img).unwrap();
+        encoder.encode_image(img).ok()?;
         now.elapsed()
     };
 
-    let file = fs::File::open(&temp_file).unwrap();
-    let stream_size = file.metadata().unwrap().len();
+    let file = fs::File::open(&temp_file).ok()?;
+    let stream_size = file.metadata().ok()?.len();
 
     let buf = BufReader::new(file);
-    let decoder = JpegDecoder::new(buf).unwrap();
-    let img = DynamicImage::from_decoder(decoder).unwrap();
+    let decoder = JpegDecoder::new(buf).ok()?;
+    let img = DynamicImage::from_decoder(decoder).ok()?;
 
-    fs::remove_file(temp_file).unwrap();
-    Compression {
+    fs::remove_file(temp_file).ok()?;
+    Some(Compression {
         stream_size,
         time_spent,
         image_if_lossy: Some(img),
-    }
+    })
 }
 
-pub fn png_quant(img: &DynamicImage, temp_file: &Path, ncolors: u16) -> Compression {
+pub fn png_quant(img: &DynamicImage, temp_file: &Path, ncolors: u16) -> Option<Compression> {
     let temp_file = temp_file.with_extension("png");
     let temp_file_2 = temp_file.with_extension("new.png");
 
     let time_spent = Instant::now();
-    img.save_with_format(&temp_file, ImageFormat::Png).unwrap();
+    img.save_with_format(&temp_file, ImageFormat::Png).ok()?;
     {
         let mut cmd = Command::new("pngquant");
         cmd.args([
@@ -170,22 +173,22 @@ pub fn png_quant(img: &DynamicImage, temp_file: &Path, ncolors: u16) -> Compress
             "--ext",
             ".new.png",
             ncolors.to_string().as_str(),
-            temp_file.to_str().unwrap(),
+            temp_file.to_str()?,
         ]);
         let mut child = cmd.spawn().expect("Expected pngquant to be installed");
-        child.wait().unwrap();
+        child.wait().ok()?;
     }
     let time_spent = time_spent.elapsed();
 
     // dbg!(&temp_file);
     // dbg!(&temp_file_2);
-    let stream_size = fs::metadata(&temp_file_2).unwrap().len();
-    let img = image::open(&temp_file_2).unwrap();
-    fs::remove_file(temp_file).unwrap();
-    fs::remove_file(temp_file_2).unwrap();
-    Compression {
+    let stream_size = fs::metadata(&temp_file_2).ok()?.len();
+    let img = image::open(&temp_file_2).ok()?;
+    fs::remove_file(temp_file).ok()?;
+    fs::remove_file(temp_file_2).ok()?;
+    Some(Compression {
         stream_size,
         time_spent,
         image_if_lossy: Some(img),
-    }
+    })
 }

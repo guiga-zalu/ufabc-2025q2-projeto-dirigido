@@ -98,9 +98,9 @@ static CODECS: LazyLock<Arc<[Codec]>> = LazyLock::new(|| {
     let jpeg_90 = Codec::new(String::from("JPEG (90%)"), |image, temp_file| {
         codecs::jpeg(image, temp_file, 90)
     });
-    // let avif_90 = Codec::new(String::from("AVIF (90%)"), |image, temp_file| {
-    //     codecs::avif(image, temp_file, 90)
-    // });
+    let avif_90 = Codec::new(String::from("AVIF (90%)"), |image, temp_file| {
+        codecs::avif(image, temp_file, 90)
+    });
     // - 80%
     let webp_80 = Codec::new(String::from("WEBP (80%)"), |image, _| {
         codecs::webp(image, Some(80.0))
@@ -108,9 +108,9 @@ static CODECS: LazyLock<Arc<[Codec]>> = LazyLock::new(|| {
     let jpeg_80 = Codec::new(String::from("JPEG (80%)"), |image, temp_file| {
         codecs::jpeg(image, temp_file, 80)
     });
-    // let avif_80 = Codec::new(String::from("AVIF (80%)"), |image, temp_file| {
-    //     codecs::avif(image, temp_file, 80)
-    // });
+    let avif_80 = Codec::new(String::from("AVIF (80%)"), |image, temp_file| {
+        codecs::avif(image, temp_file, 80)
+    });
     // - 50%
     let webp_50 = Codec::new(String::from("WEBP (50%)"), |image, _| {
         codecs::webp(image, Some(50.0))
@@ -118,9 +118,9 @@ static CODECS: LazyLock<Arc<[Codec]>> = LazyLock::new(|| {
     let jpeg_50 = Codec::new(String::from("JPEG (50%)"), |image, temp_file| {
         codecs::jpeg(image, temp_file, 50)
     });
-    // let avif_50 = Codec::new(String::from("AVIF (50%)"), |image, temp_file| {
-    //     codecs::avif(image, temp_file, 50)
-    // });
+    let avif_50 = Codec::new(String::from("AVIF (50%)"), |image, temp_file| {
+        codecs::avif(image, temp_file, 50)
+    });
     // - 15%
     let webp_15 = Codec::new(String::from("WEBP (15%)"), |image, _| {
         codecs::webp(image, Some(15.0))
@@ -128,9 +128,9 @@ static CODECS: LazyLock<Arc<[Codec]>> = LazyLock::new(|| {
     let jpeg_15 = Codec::new(String::from("JPEG (15%)"), |image, temp_file| {
         codecs::jpeg(image, temp_file, 15)
     });
-    // let avif_15 = Codec::new(String::from("AVIF (15%)"), |image, temp_file| {
-    //     codecs::avif(image, temp_file, 15)
-    // });
+    let avif_15 = Codec::new(String::from("AVIF (15%)"), |image, temp_file| {
+        codecs::avif(image, temp_file, 15)
+    });
 
     let png_quant_128 = Codec::new(String::from("PNG (pngquant 128)"), |image, temp_file| {
         codecs::png_quant(image, temp_file, 128)
@@ -151,10 +151,10 @@ static CODECS: LazyLock<Arc<[Codec]>> = LazyLock::new(|| {
         jpeg_80,
         jpeg_50,
         jpeg_15,
-        // avif_90,
-        // avif_80,
-        // avif_50,
-        // avif_15,
+        avif_90,
+        avif_80,
+        avif_50,
+        avif_15,
         png_quant_128,
         png_quant_256,
     ]
@@ -216,7 +216,7 @@ fn process_images(image_names: Vec<PathBuf>, temp_folder: &str, log_folder: &str
                 .with_desc("Processing images")
                 .with_progress_chars("@%#987654321 "),
         )
-        // .par_bridge()
+        .par_bridge()
         .for_each(|(image_name, hashes)| {
             // dbg!(&image_name);
             let temp_folder = temp_folder.clone();
@@ -275,6 +275,10 @@ fn process_image(
         let temp_file =
             temp_folder.to_string() + "/" + image_name.file_name().unwrap().to_str().unwrap();
         let compression = codec.apply(&original, &PathBuf::from(temp_file));
+        if compression.is_none() {
+            continue;
+        }
+        let compression = compression.unwrap();
 
         if let Some(other) = compression.image_if_lossy {
             writeln!(
