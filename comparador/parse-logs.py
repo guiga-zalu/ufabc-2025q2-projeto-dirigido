@@ -187,14 +187,14 @@ class Codec:
         size_bytes: Optional[Metric] = None,
         time_mcs: Optional[Metric] = None,
         lossy: bool = False,
-        hashes: dict[str, Metric] = {},
-        metrics: dict[str, Metric] = {},
+        hashes: Optional[dict[str, Metric]] = None,
+        metrics: Optional[dict[str, Metric]] = None,
         k: int = 1,
     ):
         self.name = name
         self.lossy = lossy
-        self.hashes = hashes
-        self.metrics = metrics
+        self.hashes = hashes or {}
+        self.metrics = metrics or {}
         self.k = k
         self.size_bytes = size_bytes or Metric(
             "Filesize",
@@ -262,10 +262,14 @@ class Codec:
         self.size_bytes.compile()
 
 
-@dataclass
+@dataclass(init=False)
 class Status:
     total_files: int
     codecs: dict[str, Codec]
+
+    def __init__(self, total_files: int = 0, codecs: Optional[dict[str, Codec]] = None):
+        self.total_files = total_files
+        self.codecs = codecs or {}
 
     def compile(self):
         for codec in self.codecs.values():
@@ -301,6 +305,7 @@ def parse_log_line(
 ) -> Optional[Codec]:
     if line.startswith("Image "):
         stats.total_files += 1
+        # No codec
         return None
 
     parts = line[:-1].split(",")
@@ -316,9 +321,13 @@ def parse_log_line(
         codec.size_bytes.values.append(int(size_bytes[:-1]))
         codec.time_mcs.values.append(int(time_spent_mcs[:-3]))
         codec.relative_sizes.values.append(float(relative_size[:-1]))
+        assert stats.total_files >= len(codec.size_bytes.values)
+        assert stats.total_files >= len(codec.time_mcs.values)
+        assert stats.total_files >= len(codec.relative_sizes.values)
         return codec
 
     if not codec or not codec.lossy:
+        # No codec
         return None
 
     if descriptor == "Hash":
@@ -334,7 +343,11 @@ def parse_log_line(
     if descriptor == "Metric":
         name, value = parts
         metric = ensure_entry(
-            codec.metrics, name, lambda: Metric(name, proper_rounding=1)
+            codec.metrics,
+            name,
+            lambda: Metric(
+                name, scale_into_unity="%", scale_by=100.0, proper_rounding=1
+            ),
         )
         value = float(value)
         if value > 0.0 or not ignore_zeroes:
@@ -344,8 +357,8 @@ def parse_log_line(
 
 def parse_log_file(filename: Path, ignore_zeroes: bool) -> Status:
     stats: Status = Status(0, {})
-    codec: Optional[Codec] = None
     with filename.open("r") as f:
+        codec: Optional[Codec] = None
         for line in f.readlines():
             try:
                 codec = parse_log_line(line, stats, codec, ignore_zeroes)
@@ -382,7 +395,7 @@ def divide_stats(stats: Status):
 def main():
     from sys import argv
 
-    folder = "logs"
+    folder = "comparador/logs"
     ignore_zeroes = False
     if len(argv) > 1:
         if "-i" in argv:
