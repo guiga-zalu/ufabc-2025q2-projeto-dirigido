@@ -1,176 +1,256 @@
-Total files: 7042
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-10.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-11.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-12.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-13.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-14.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-15.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-16.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-17.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-2.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-3.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-4.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-5.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-6.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-7.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-8.log
+Parsing log file: datasets/Kaggle/Brain Tumor MRI Dataset/logs/thread-9.log
+Total files: 7023
 Per image statistics for codec PNG (Lossless)
 - Filesize (KiB): 0.0 | 200.0 ± 100.0 | 2000.0
 - Relative Size (%): 110.0 | 650.0 ± 240.0 | 1320.0
-- Time (ms) : 0.2 | 1.1 ± 1.1 | 23.1
+- Time (ms) : 0.2 | 1.4 ± 1.6 | 21.1
 
 Per image statistics for codec QOI (Lossless)
 - Filesize (KiB): 0.0 | 200.0 ± 100.0 | 2000.0
 - Relative Size (%): 100.0 | 660.0 ± 160.0 | 1130.0
-- Time (ms) : 0.2 | 1.2 ± 1.1 | 14.8
+- Time (ms) : 0.2 | 1.5 ± 1.6 | 15.2
 
 Per image statistics for codec WEBP (Lossless)
 - Filesize (KiB): 10.0 | 60.0 ± 40.0 | 570.0
 - Relative Size (%): 33.0 | 249.0 ± 46.0 | 395.0
-- Time (ms) : 4.0 | 53.0 ± 42.0 | 633.0
+- Time (ms) : 3.0 | 61.0 ± 49.0 | 725.0
 
 Per image statistics for codec WEBP (90%) (Lossy)
 - Filesize (KiB): 0.0 | 20.0 ± 10.0 | 150.0
 - Relative Size (%): 9.0 | 86.0 ± 22.0 | 169.0
-- Time (ms) : 2.0 | 14.0 ± 10.0 | 156.0
+- Time (ms) : 3.0 | 16.0 ± 11.0 | 160.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.06 ± 0.33 | 4.69
+- D Hash (%): 0.0 | 0.34 ± 0.78 | 4.69
+- P Hash (%): 0.0 | 0.32 ± 0.74 | 6.25
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.33 | 1.15 ± 0.24 | 1.97
+- MSE (%)   : 0.0004 | 0.0032 ± 0.0016 | 0.0082
+- SSIM (%)  : 99.81 | 99.952 ± 0.022 | 99.991
+- MS SSIM (%): 97.95 | 99.18 ± 0.31 | 99.97
+- GMSM (%)  : 75.3 | 95.2 ± 3.1 | 99.8
+- GMSD (%)  : 2.7 | 16.3 ± 6.2 | 40.9
 
 Per image statistics for codec WEBP (80%) (Lossy)
 - Filesize (KiB): 2.0 | 12.0 ± 8.0 | 98.0
-- Relative Size (%): 5.0 | 56.0 ± 19.0 | 119.0
-- Time (ms) : 2.3 | 12.9 ± 9.3 | 149.5
+- Relative Size (%): 5.0 | 57.0 ± 19.0 | 119.0
+- Time (ms) : 2.0 | 14.0 ± 10.0 | 155.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.08 ± 0.37 | 4.69
+- D Hash (%): 0.0 | 0.37 ± 0.82 | 6.25
+- P Hash (%): 0.0 | 0.41 ± 0.82 | 6.25
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.53 | 1.88 ± 0.45 | 3.42
+- MSE (%)   : 0.0007 | 0.0052 ± 0.0029 | 0.0145
+- SSIM (%)  : 99.479 | 99.878 ± 0.056 | 99.979
+- MS SSIM (%): 93.93 | 98.14 ± 0.62 | 99.87
+- GMSM (%)  : 70.8 | 91.7 ± 4.2 | 99.6
+- GMSD (%)  : 4.5 | 21.6 ± 6.3 | 43.3
 
 Per image statistics for codec WEBP (50%) (Lossy)
 - Filesize (KiB): 1.0 | 8.0 ± 5.0 | 66.0
 - Relative Size (%): 3.0 | 36.0 ± 15.0 | 87.0
-- Time (ms) : 1.9 | 11.9 ± 8.6 | 122.7
+- Time (ms) : 2.3 | 13.0 ± 9.7 | 179.1
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.12 ± 0.44 | 4.69
+- D Hash (%): 0.0 | 0.6 ± 1.0 | 9.4
+- P Hash (%): 0.0 | 0.6 ± 1.0 | 7.8
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.77 | 2.84 ± 0.83 | 5.86
+- MSE (%)   : 0.001 | 0.0082 ± 0.005 | 0.0249
+- SSIM (%)  : 98.7 | 99.72 ± 0.14 | 99.95
+- MS SSIM (%): 85.4 | 96.2 ± 1.2 | 99.4
+- GMSM (%)  : 62.5 | 87.0 ± 6.0 | 98.4
+- GMSD (%)  : 6.5 | 26.7 ± 6.7 | 45.7
 
 Per image statistics for codec WEBP (15%) (Lossy)
 - Filesize (KiB): 1.0 | 4.0 ± 3.0 | 37.0
 - Relative Size (%): 1.7 | 20.2 ± 9.1 | 59.9
-- Time (ms) : 2.0 | 11.0 ± 8.0 | 119.4
+- Time (ms) : 2.0 | 11.9 ± 9.0 | 125.5
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.24 ± 0.63 | 4.69
+- D Hash (%): 0.0 | 1.1 ± 1.5 | 12.5
+- P Hash (%): 0.0 | 1.1 ± 1.5 | 10.9
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 1.6 | 4.4 ± 1.5 | 10.8
+- MSE (%)   : 0.0015 | 0.0134 ± 0.0091 | 0.0475
+- SSIM (%)  : 96.77 | 99.28 ± 0.37 | 99.87
+- MS SSIM (%): 76.0 | 92.0 ± 2.4 | 97.9
+- GMSM (%)  : 50.4 | 80.9 ± 7.7 | 97.1
+- GMSD (%)  : 8.8 | 31.3 ± 6.5 | 46.8
 
 Per image statistics for codec JPEG (90%) (Lossy)
 - Filesize (KiB): 10.0 | 30.0 ± 10.0 | 270.0
 - Relative Size (%): 19.0 | 142.0 ± 22.0 | 197.0
-- Time (ms) : 21.0 | 117.0 ± 58.0 | 1088.0
+- Time (ms) : 20.0 | 127.0 ± 66.0 | 1290.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.03 ± 0.26 | 4.69
+- D Hash (%): 0.0 | 0.11 ± 0.42 | 3.12
+- P Hash (%): 0.0 | 0.15 ± 0.51 | 4.69
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.0 | 0.34 ± 0.25 | 1.87
+- MSE (%)   : 0.0001 | 0.0012 ± 0.0013 | 0.0092
+- SSIM (%)  : 99.9299 | 99.9912 ± 0.0077 | 100.0
+- MS SSIM (%): 98.727 | 99.888 ± 0.052 | 99.999
+- GMSM (%)  : 90.62 | 98.79 ± 0.66 | 100.0
+- GMSD (%)  : 0.1 | 7.9 ± 2.6 | 26.5
 
 Per image statistics for codec JPEG (80%) (Lossy)
 - Filesize (KiB): 10.0 | 20.0 ± 10.0 | 200.0
 - Relative Size (%): 13.0 | 111.0 ± 19.0 | 157.0
-- Time (ms) : 17.0 | 92.0 ± 44.0 | 742.0
+- Time (ms) : 16.0 | 97.0 ± 48.0 | 784.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.04 ± 0.26 | 4.69
+- D Hash (%): 0.0 | 0.13 ± 0.47 | 4.69
+- P Hash (%): 0.0 | 0.23 ± 0.61 | 4.69
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.15 | 0.65 ± 0.42 | 4.95
+- MSE (%)   : 0.0004 | 0.002 ± 0.002 | 0.0133
+- SSIM (%)  : 99.517 | 99.977 ± 0.027 | 99.998
+- MS SSIM (%): 91.03 | 99.69 ± 0.31 | 99.96
+- GMSM (%)  : 84.5 | 97.6 ± 1.1 | 99.9
+- GMSD (%)  : 2.1 | 10.7 ± 2.9 | 32.8
 
 Per image statistics for codec JPEG (50%) (Lossy)
 - Filesize (KiB): 4.0 | 19.0 ± 8.0 | 136.0
 - Relative Size (%): 9.0 | 86.0 ± 17.0 | 124.0
-- Time (ms) : 11.0 | 71.0 ± 33.0 | 553.0
+- Time (ms) : 12.0 | 75.0 ± 37.0 | 593.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.13 ± 0.48 | 6.25
+- D Hash (%): 0.0 | 0.6 ± 1.1 | 9.4
+- P Hash (%): 0.0 | 0.48 ± 0.9 | 6.25
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.1 | 2.2 ± 1.2 | 9.5
+- MSE (%)   : 0.0003 | 0.0061 ± 0.0064 | 0.0444
+- SSIM (%)  : 98.63 | 99.79 ± 0.19 | 100.0
+- MS SSIM (%): 83.4 | 97.5 ± 1.0 | 100.0
+- GMSM (%)  : 68.9 | 92.5 ± 3.1 | 99.9
+- GMSD (%)  : 2.3 | 19.1 ± 5.0 | 44.0
 
 Per image statistics for codec JPEG (15%) (Lossy)
 - Filesize (KiB): 3.0 | 11.0 ± 5.0 | 86.0
 - Relative Size (%): 5.0 | 50.0 ± 11.0 | 88.0
-- Time (ms) : 7.0 | 42.0 ± 20.0 | 340.0
+- Time (ms) : 7.0 | 44.0 ± 22.0 | 397.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.31 ± 0.74 | 7.81
+- D Hash (%): 0.0 | 2.1 ± 2.3 | 14.1
+- P Hash (%): 0.0 | 1.4 ± 1.6 | 9.4
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 1.8 | 4.5 ± 1.9 | 16.5
+- MSE (%)   : 0.002 | 0.011 ± 0.011 | 0.079
+- SSIM (%)  : 96.19 | 99.25 ± 0.53 | 99.9
+- MS SSIM (%): 69.9 | 86.6 ± 4.3 | 96.2
+- GMSM (%)  : 45.1 | 76.9 ± 8.9 | 98.3
+- GMSD (%)  : 7.6 | 35.4 ± 7.6 | 48.2
+
+Per image statistics for codec AVIF (90%) (Lossy)
+- Filesize (KiB): 3.0 | 16.0 ± 7.0 | 123.0
+- Relative Size (%): 7.0 | 74.0 ± 12.0 | 105.0
+- Time (ms) : 60.0 | 450.0 ± 230.0 | 4980.0
+Hashes:
+- A Hash (%): 0.0 | 0.06 ± 0.32 | 4.69
+- D Hash (%): 0.0 | 0.21 ± 0.59 | 4.69
+- P Hash (%): 0.0 | 0.26 ± 0.65 | 4.69
+Metrics:
+- MAE (%)   : 0.21 | 0.77 ± 0.26 | 2.16
+- MSE (%)   : 0.0005 | 0.002 ± 0.0014 | 0.0093
+- SSIM (%)  : 99.889 | 99.971 ± 0.012 | 99.996
+- MS SSIM (%): 98.12 | 99.55 ± 0.15 | 99.97
+- GMSM (%)  : 74.0 | 94.4 ± 3.1 | 99.8
+- GMSD (%)  : 2.6 | 18.5 ± 6.5 | 42.1
+
+Per image statistics for codec AVIF (80%) (Lossy)
+- Filesize (KiB): 2.0 | 10.0 ± 5.0 | 77.0
+- Relative Size (%): 4.0 | 47.0 ± 11.0 | 88.0
+- Time (ms) : 70.0 | 450.0 ± 230.0 | 4430.0
+Hashes:
+- A Hash (%): 0.0 | 0.07 ± 0.34 | 4.69
+- D Hash (%): 0.0 | 0.29 ± 0.7 | 4.69
+- P Hash (%): 0.0 | 0.39 ± 0.8 | 7.81
+Metrics:
+- MAE (%)   : 0.39 | 1.59 ± 0.47 | 4.02
+- MSE (%)   : 0.0007 | 0.0038 ± 0.0026 | 0.0163
+- SSIM (%)  : 99.556 | 99.894 ± 0.045 | 99.987
+- MS SSIM (%): 95.04 | 98.23 ± 0.57 | 99.86
+- GMSM (%)  : 60.2 | 88.3 ± 5.0 | 99.5
+- GMSD (%)  : 4.7 | 26.5 ± 6.8 | 46.2
+
+Per image statistics for codec AVIF (50%) (Lossy)
+- Filesize (KiB): 1.0 | 6.0 ± 3.0 | 42.0
+- Relative Size (%): 2.3 | 27.9 ± 8.5 | 62.6
+- Time (ms) : 40.0 | 280.0 ± 140.0 | 3000.0
+Hashes:
+- A Hash (%): 0.0 | 0.09 ± 0.39 | 3.12
+- D Hash (%): 0.0 | 0.52 ± 0.96 | 6.25
+- P Hash (%): 0.0 | 0.6 ± 1.0 | 7.8
+Metrics:
+- MAE (%)   : 0.92 | 2.64 ± 0.97 | 7.03
+- MSE (%)   : 0.0009 | 0.0067 ± 0.0052 | 0.0302
+- SSIM (%)  : 98.44 | 99.71 ± 0.15 | 99.96
+- MS SSIM (%): 81.3 | 96.0 ± 1.2 | 99.4
+- GMSM (%)  : 52.0 | 82.7 ± 6.3 | 98.3
+- GMSD (%)  : 8.4 | 31.6 ± 6.5 | 48.0
+
+Per image statistics for codec AVIF (15%) (Lossy)
+- Filesize (KiB): 1.0 | 2.0 ± 1.0 | 15.0
+- Relative Size (%): 1.0 | 11.7 ± 3.6 | 31.8
+- Time (ms) : 40.0 | 250.0 ± 120.0 | 2310.0
+Hashes:
+- A Hash (%): 0.0 | 0.32 ± 0.73 | 6.25
+- D Hash (%): 0.0 | 2.4 ± 2.4 | 17.2
+- P Hash (%): 0.0 | 1.9 ± 2.0 | 14.1
+Metrics:
+- MAE (%)   : 2.0 | 5.4 ± 2.4 | 20.6
+- MSE (%)   : 0.002 | 0.014 ± 0.013 | 0.09
+- SSIM (%)  : 93.71 | 98.75 ± 0.8 | 99.83
+- MS SSIM (%): 64.9 | 86.1 ± 2.9 | 94.9
+- GMSM (%)  : 48.6 | 73.9 ± 6.7 | 93.4
+- GMSD (%)  : 16.4 | 36.0 ± 4.6 | 46.9
 
 Per image statistics for codec PNG (pngquant 128) (Lossy)
 - Filesize (KiB): 10.0 | 100.0 ± 50.0 | 980.0
 - Relative Size (%): 60.0 | 440.0 ± 120.0 | 650.0
-- Time (ms) : 8.0 | 53.0 ± 27.0 | 499.0
+- Time (ms) : 8.0 | 62.0 ± 32.0 | 589.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.12 ± 0.46 | 6.25
+- D Hash (%): 0.0 | 0.21 ± 0.59 | 4.69
+- P Hash (%): 0.0 | 0.22 ± 0.6 | 4.69
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.008 | 0.141 ± 0.092 | 1.314
+- MSE (%)   : 0.00012 | 0.00065 ± 0.00047 | 0.0071
+- SSIM (%)  : 99.9823 | 99.9971 ± 0.0011 | 99.9997
+- MS SSIM (%): 98.998 | 99.969 ± 0.037 | 99.999
+- GMSM (%)  : 96.43 | 99.8 ± 0.25 | 100.0
+- GMSD (%)  : 0.1 | 2.4 ± 1.8 | 17.8
 
 Per image statistics for codec PNG (pngquant 256) (Lossy)
 - Filesize (KiB): 10.0 | 110.0 ± 60.0 | 1120.0
 - Relative Size (%): 60.0 | 480.0 ± 130.0 | 730.0
-- Time (ms) : 7.0 | 52.0 ± 26.0 | 460.0
+- Time (ms) : 8.0 | 60.0 ± 31.0 | 478.0
 Hashes:
-- A Hash (%): 0.0 | 0.11 ± 0.45 | 7.81
-- D Hash (%): 0.0 | 0.6 ± 1.3 | 14.1
-- P Hash (%): 0.0 | 0.5 ± 1.0 | 10.9
+- A Hash (%): 0.0 | 0.002 ± 0.056 | 3.125
+- D Hash (%): 0.0 | 0.002 ± 0.062 | 1.562
+- P Hash (%): 0.0 | 0.003 ± 0.072 | 3.125
 Metrics:
-- MAE       : 0.0 | 0.016 ± 0.018 | 0.165
-- MSE       : 0.0 | 0.24 ± 0.26 | 2.5
-- SSIM      : 0.0 | 0.998 ± 0.0068 | 1.0
-- MS SSIM   : 0.699 | 0.97 ± 0.047 | 1.0
-- GMSM      : 0.451 | 0.927 ± 0.091 | 1.0
-- GMSD      : 0.0 | 0.16 ± 0.13 | 0.48
+- MAE (%)   : 0.0 | 0.003 ± 0.032 | 0.744
+- MSE (%)   : 0.0 | 2e-05 ± 0.00022 | 0.00512
+- SSIM (%)  : 99.9914 | 99.99996 ± 0.0004 | 100.0
+- MS SSIM (%): 99.06 | 99.998 ± 0.032 | 100.0
+- GMSM (%)  : 97.14 | 99.99 ± 0.12 | 100.0
+- GMSD (%)  : 0.0 | 0.08 ± 0.82 | 15.34
 

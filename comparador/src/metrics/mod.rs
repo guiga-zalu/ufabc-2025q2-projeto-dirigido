@@ -82,9 +82,8 @@ where
                     .sum::<f64>()
             })
             .sum::<f64>();
-        (sum / ((original.width() * original.height()) as f64
-            * SubPixelType::DEFAULT_MAX_VALUE.as_()))
-        .sqrt()
+        sum / ((original.width() * original.height()) as f64
+            * SubPixelType::DEFAULT_MAX_VALUE.as_().powi(2))
     }
 }
 
